@@ -37,4 +37,14 @@ public class ProductRepository {
         }
         return existing;
     }
+
+    public boolean delete(String productId) {
+        Product productToRemove = findById(productId);
+        if (productToRemove != null) {
+            productData.remove(productToRemove);
+            return true;
+        }
+        return false;
+    }
+
 }
