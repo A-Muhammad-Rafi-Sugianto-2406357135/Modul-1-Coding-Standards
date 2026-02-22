@@ -30,6 +30,7 @@ public class ProductController {
     public String createProductPost(@ModelAttribute Product product, Model model) {
         service.create(product);
         return "redirect:/product/list";
+        
     }
 
     @GetMapping("/list")
