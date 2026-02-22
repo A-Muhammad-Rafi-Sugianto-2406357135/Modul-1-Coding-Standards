@@ -1,0 +1,19 @@
+name: Deploy to Koyeb
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Koyeb
+        uses: koyeb/action-git-deploy@v1
+        with:
+          api-token: ${{ secrets.KOYEB_API_TOKEN }}
+          app-name: modul-1-coding-standards
+          service-name: modul-1-coding-standards
