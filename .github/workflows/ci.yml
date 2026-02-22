@@ -28,4 +28,4 @@ jobs:
         run: ./gradlew test
 
       - name: SonarCloud Scan
-        run: ./gradlew sonarqube -Dsonar.projectKey=2406357135_Modul-1-Coding-Standards -Dsonar.organization=A-Muhammad-Rafi-Sugianto-2406357135 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew sonar -Dsonar.projectKey=2406357135_Modul-1-Coding-Standards -Dsonar.organization=a-muhammad-rafi-sugianto-2406357135 -Dsonar.host.url=https://sonarcloud.io -Dsonar.token=${{ secrets.SONAR_TOKEN }}
