@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CreateProductFunctionalTest {
+class CreateProductFunctionalTest {
 
     private WebDriver driver;
 
