@@ -26,3 +26,10 @@ jobs:
 
       - name: Run unit tests
         run: ./gradlew test
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2
+        with:
+          projectKey: 2406357135_Modul-1-Coding-Standards
+          organization: A-Muhammad-Rafi-Sugianto-2406357135
+          token: ${{ secrets.SONAR_TOKEN }}
