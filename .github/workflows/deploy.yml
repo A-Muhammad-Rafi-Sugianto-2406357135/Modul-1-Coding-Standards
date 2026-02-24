@@ -18,6 +18,6 @@ jobs:
         run: echo "$HOME/.koyeb/bin" >> $GITHUB_PATH
 
       - name: Deploy to Koyeb
-        run: koyeb services redeploy modul-1-coding-standards/modul-1-coding-standards
+        run: koyeb services redeploy elegant-nissie/modul-1-coding-standards
         env:
           KOYEB_TOKEN: ${{ secrets.KOYEB_API_TOKEN }}
