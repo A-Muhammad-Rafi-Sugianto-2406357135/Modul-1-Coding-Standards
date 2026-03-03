@@ -65,3 +65,45 @@ Refleksi 1
 
 </details>
 
+<details>
+<Summary><b>Modul 3</b></Summary>
+
+1. Principle yang saya terapkan pada project saya di antaranya adalah:
+
+   - Single Responsibility, disini saya menerapkan prinsip ini dengan memisahkan class CarController dan ProductController menjadi 2 file yang berbeda (awalnya kedua class tsb digabung di 1 file), karena 1 unit (file, class, method, dst) harus memiliki 1 tanggung jawab saja. Selanjutnya, saya juga menghapus Hapus CarController extends ProductController, karena setiap controller harus punya tanggung jawab sendiri dan tidak boleh mewarisi logika yang tidak relevan.
+
+   - Open Closed, saya menerapkan prinsip ini dengan mengubah CarRepository menjadi sebuah interface, dengan ebgitu kita bisa menambahkan implementasi baru misal menggunakan JPA, MongoDB, dst tanpa mengubah kode yg sudah ada.
+
+   - Liskov Substitution, saya menerapkan prinsip ini dengan menhapus CarController extends ProductController karena tidak ada relasi is-a, karena Car bukan jenis Product dalam konteks controller, CarController tidak seharusnya mewarisi ProductController
+
+   - Dependency Inversion, saya menerapkan prinsip ini dengan membuat interface CarRepository dan CarService di setiap layer, sehingga layer atas tidak bergantung pada implementasi konkret. Saya juga mengubah field injection menjadi constructor injection di CarServiceImpl dan CarController, karena dependency harus inject dari luar, bukan dibuat sendiri di dalam class.
+   
+2. Beberapa keuntungan menerapkan SOLID diantaranya adalah:
+
+   - Mudah melakukan migrasi ke database, karena CarRepository adalah interface, jika ingin migrasi ke JPA maka kita cukup membuat implementasi baru, misal seperti di bawah ini:
+
+      @Repository
+      public class JpaCarRepository implements CarRepository {
+         // implementasi JPA
+      }
+      
+      Hal ini bisa dilakukan tanpa memodifikasi service dan controller sama sekali.
+
+   - Mudah ditest,  krn menggunakan constructor injection dan interface, dependency bisa dimock saat unit testing dan tidak perlu         database asli
+
+      CarRepository mockRepo = mock(CarRepository.class);
+      CarServiceImpl service = new CarServiceImpl(mockRepo);
+
+   - Mudah dimaintain, karena CarController dan ProductController dipisah menjadi file berbeda, ketika ada bug di fitur Car, developer langsung tahu harus buka file mana tanpa takut tidak sengaja merusak logika Product dst
+
+3. Beberapa kerugian tidak menerapkan SOLID diantaranya adalah:
+
+   - Perubahan kecil bisa merusak banyak hal, krn sebelumnya CarController extends ProductController, perubahan di ProductController bisa    tidak sengaja merusak behavior CarController meski tidak ada hubungannya sama sekali.
+
+   - Sulit ditest, karena field injection @Autowired menyembunyikan dependency, untuk test Controller kita terpaksa harus menjalankan Service dan Repository yang asli juga.
+   
+   - Kode sulit dibaca dan dipahami, karena dua class CarController dan ProductController digabung dalam satu file, developer yang baru bergabung ke project harus membaca seluruh file hanya untuk memahami satu fitur saja, sehingga membuang waktu dan bisa sjaa salah edit.
+
+
+</details>
+
