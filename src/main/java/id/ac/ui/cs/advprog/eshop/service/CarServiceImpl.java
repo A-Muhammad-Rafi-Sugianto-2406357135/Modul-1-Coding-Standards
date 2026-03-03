@@ -10,39 +10,43 @@ import java.util.List;
 @Service
 public class CarServiceImpl implements CarService {
 
-    @Autowired
-    private CarRepository carRepository;
+    private final CarRepository carRepository;
+
+    public CarServiceImpl(CarRepository carRepository) {
+        this.carRepository = carRepository;
+    }
 
     @Override
     public Car create(Car car) {
         // TODO Auto-generated method stub
-        carRepository.create(car);
-        return car;
+        return carRepository.create(car);
     }
 
     @Override
     public List<Car> findAll() {
-        Iterator<Car> carIterator = carRepository.findAll();
-        List<Car> allCar = new ArrayList<>();
-        carIterator.forEachRemaining(allCar::add);
-        return allCar;
+        return carRepository.findAll();
     }
 
     @Override
     public Car findById(String carId) {
         Car car = carRepository.findById(carId);
+        if (car == null) {
+            throw new RuntimeException("Car not found");
+        }
         return car;
     }
 
     @Override
-    public void update(String carId, Car car) {
-        // TODO Auto-generated method stub
-        carRepository.update(carId, car);
+    public Car update(String carId, Car car) {
+        Car updated = carRepository.update(carId, car);
+        if (updated == null) {
+            throw new RuntimeException("Car not found");
+        }
+        return updated;
     }
 
     @Override
     public void deleteCarById(String carId) {
-        // TODO Auto-generated method stub
         carRepository.delete(carId);
     }
 }
